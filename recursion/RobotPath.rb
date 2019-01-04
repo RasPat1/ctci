@@ -24,6 +24,7 @@ class RobotPath
       return true
     else
       directions = [[0,1], [1,0]]
+      q = []
 
       directions.each do |direction|
         new_x = x + direction[0]
