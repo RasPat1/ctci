@@ -15,7 +15,7 @@ SQUARE_TYPES = [
   PATH = 'O',
   EXPLORED = '+'
 ]
-
+# 331, 360, 388... p 344
 class RobotPath
   def call(grid, x = 0, y = 0)
     # Base Case
