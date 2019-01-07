@@ -17,20 +17,20 @@ class BSTSpec
   def test_insert
     val = rand_val
     tree = BST.new(val)
-    tree.insert(val + 2)
+    BST.insert(tree, val + 2)
     fail unless tree.right != nil
     fail unless tree.right.value >= tree.value
     fail unless tree.left == nil
 
-    tree.insert(val - 2)
+    BST.insert(tree, val - 2)
     fail unless tree.left != nil
     fail unless tree.left.value <= tree.value
 
-    tree.insert(val + 1)
+    BST.insert(tree, val + 1)
     fail unless tree.right.left != nil
     fail unless tree.right.right == nil
     fail unless tree.right.value >= tree.right.left.value
-    tree.insert(val + 3)
+    BST.insert(tree, val + 3)
     fail unless tree.right.right != nil
     fail unless tree.right.value <= tree.right.right.value
     puts "Test Passed: Insert"
@@ -46,14 +46,16 @@ class BSTSpec
       val + 100, val - 100
     ]
     values.each do |new_val|
-      tree.insert(new_val)
+      BST.insert(tree, new_val)
     end
     values.each do |new_val|
-      fail unless tree.search(new_val) != nil
+      fail unless BST.search(tree, new_val) != nil
     end
     other_values.each do |other_val|
-      fail unless tree.serach(other_val) == nil
+      fail unless BST.search(tree, other_val) == nil
     end
+
+    puts "Test Passed: Search"
   end
 
   def fail

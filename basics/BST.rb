@@ -10,34 +10,37 @@ class BST
   end
 
   # Create a node with the given value and return the root
-  def insert(value)
-    if value >= self.value
-      if self.right == nil
-        self.right = BST.new(value)
-      else
-        self.right.insert(value)
-      end
-    elsif value < self.value
-      if self.left == nil
-        self.left = BST.new(value)
-      else
-        self.left.insert(value)
-      end
+  def self.insert(root, value)
+    if root == nil
+      root = BST.new(value)
+    elsif value >= root.value
+      root.right = BST.insert(root.right, value)
+    elsif value < root.value
+      root.left = BST.insert(root.left, value)
     end
+
+    root
   end
 
   # Delete a node with the given value
   # Return true if it was deleted return false if it was not
   def delete(value)
+   #        6
+   #     2     7
+   #   0   4
+   # -2 1 3 5
   end
 
   # Return the node if the value exists and nil if it does not
-  # Alt: return true if the value exists
-  def search(value)
-    if value > self.value
-      if self.right != nil
-        return nil
+  def self.search(node, value)
+    return nil if node == nil
+    return node if node.value == value
 
+    if value > node.value
+      BST.search(node.right, value)
+    elsif value < node.value
+      BST.search(node.left, value)
+    end
   end
 
   # Extra credit: Balance the tree when this is called
