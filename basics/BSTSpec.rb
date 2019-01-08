@@ -10,6 +10,7 @@ class BSTSpec
     test_delete
     test_valid?
     test_inorder
+    test_construct_from_preorder
   end
 
   def test_create
@@ -85,6 +86,15 @@ class BSTSpec
     fail unless BST.valid?(root)
     fail unless BST.search(root, 2) == nil
     puts "Test Passed: Delete"
+  end
+
+  def test_construct_from_preorder
+    preorder = [10, 5, 1, 7, 40, 50]
+    root = BST.construct_from_preorder(preorder)
+    inorder = BST.inorder(root)
+
+    fail unless inorder == preorder.sort
+    puts "Test Passed: Construct from Preorder"
   end
 
   def test_valid?

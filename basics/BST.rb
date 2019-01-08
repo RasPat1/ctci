@@ -105,6 +105,36 @@ class BST
     true
   end
 
+  # Construct a tree from a given preorder traversal
+  # O(n^2)
+  def self.construct_from_preorder(arr)
+    # The first element of the array is the root
+    # then get the elements from index 1 until
+    # the first value that's larger than the root value
+    # That's the left subtree
+    # Everythign from the first value larger than the root value until the
+    # end of the array is in teh right subtree
+    return nil if arr.size == 0
+    root = BST.insert(nil, arr[0])
+    left_subarray = []
+    right_subarray = []
+
+    arr.each_index do |index|
+      next if index == 0
+
+      if arr[index] >= root.value
+        right_subarray = arr[index..-1]
+        break
+      end
+      left_subarray << arr[index]
+    end
+
+    root.left = BST.construct_from_preorder(left_subarray)
+    root.right = BST.construct_from_preorder(right_subarray)
+
+    root
+  end
+
   # Extra credit: Balance the tree when this is called
   def balance
   end
