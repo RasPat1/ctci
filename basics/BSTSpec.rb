@@ -70,15 +70,19 @@ class BSTSpec
     BST.insert(root, -1)
 
     BST.delete(root, 1)
+    fail unless BST.valid?(root)
     fail unless BST.search(root, 1) == nil
 
     BST.delete(root, 4)
+    fail unless BST.valid?(root)
     fail unless BST.search(root, 4) == nil
 
     BST.delete(root, 0)
+    fail unless BST.valid?(root)
     fail unless BST.search(root, 0) == nil
 
     BST.delete(root, 2)
+    fail unless BST.valid?(root)
     fail unless BST.search(root, 2) == nil
     puts "Test Passed: Delete"
   end

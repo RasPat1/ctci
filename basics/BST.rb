@@ -25,37 +25,40 @@ class BST
   # Delete a node with the given value
   # Return true if it was deleted return false if it was not
   def self.delete(root, value)
+    # if our root is nil lets return nil we're done
+    # if we don't find the value we're done
+    # if we find the value and it's got no children delete it
+    # if we find the value and it's got 1 child, replace teh node with a childe
+    # if we find the value and it's got 2 children, replace teh node with its succesor and delete teh succesor (recurse)
+
     return nil if root == nil
 
     if value > root.value
       root.right = BST.delete(root.right, value)
     elsif value < root.value
       root.left = BST.delete(root.left, value)
-    else value == root.value
-      # One or no children
-      if root.left == nil
-        return root.right
-      elsif root.right == nil
+    elsif value == root.value
+      # if it has 1 or no children
+      if root.right == nil
         return root.left
+      elsif root.left == nil
+        return root.right
       end
 
-      # Has 2 children
-      min_node = BST.min(root.right)
-      root.value = min_node.value
-      root.right = BST.delete(root.right, min_node.value)
+      # If it has 2 children
+      root.value = BST.min_value(root.right)
+      root.right = BST.delete(root.right, root.value)
     end
 
     root
   end
 
-  def self.min(root)
-    min = root
-
+  def self.min_value(root)
     while root.left != nil
-      min = root.left
+      root = root.left
     end
 
-    min
+    root.value
   end
 
   # Return the node if the value exists and nil if it does not
