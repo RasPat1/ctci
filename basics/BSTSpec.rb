@@ -7,6 +7,9 @@ class BSTSpec
     test_create
     test_insert
     test_search
+    test_delete
+    test_valid?
+    test_inorder
   end
 
   def test_create
@@ -56,6 +59,60 @@ class BSTSpec
     end
 
     puts "Test Passed: Search"
+  end
+
+  def test_delete
+    root = BST.insert(nil, 1)
+    BST.insert(root, 2)
+    BST.insert(root, 3)
+    BST.insert(root, 4)
+    BST.insert(root, 0)
+    BST.insert(root, -1)
+
+    BST.delete(root, 1)
+    fail unless BST.search(root, 1) == nil
+
+    BST.delete(root, 4)
+    fail unless BST.search(root, 4) == nil
+
+    BST.delete(root, 0)
+    fail unless BST.search(root, 0) == nil
+
+    BST.delete(root, 2)
+    fail unless BST.search(root, 2) == nil
+    puts "Test Passed: Delete"
+  end
+
+  def test_valid?
+    root = BST.insert(nil, 1)
+    BST.insert(root, 2)
+    BST.insert(root, -1)
+
+    fail unless BST.valid?(root)
+    root.right.value = -1
+
+    fail unless BST.valid?(root) == false
+    root.left.value = 2
+
+    fail unless BST.valid?(root) == false
+    puts "Test Passed: Valid"
+  end
+
+  def test_inorder
+    root = BST.insert(nil, 0)
+
+    nums = [*1..10].shuffle
+    nums.each do |num|
+      BST.insert(root, num)
+    end
+
+    nums << 0
+    nums = nums.sort
+    inorder = BST.inorder(root)
+
+    fail unless inorder == nums
+
+    puts "Test Passed: Inorder"
   end
 
   def fail
