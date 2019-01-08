@@ -91,9 +91,9 @@ class BSTSpec
   def test_construct_from_preorder
     preorder = [10, 5, 1, 7, 40, 50]
     root = BST.construct_from_preorder(preorder)
-    inorder = BST.inorder(root)
+    our_preorder = BST.preorder(root)
 
-    fail unless inorder == preorder.sort
+    fail unless our_preorder == preorder
     puts "Test Passed: Construct from Preorder"
   end
 

@@ -83,12 +83,22 @@ class BST
     nodes
   end
 
-  def self.postorder(node, nodes = [])
+  def self.preorder(node, nodes = [])
     return [] if node == nil
 
     nodes += [node.value]
-    nodes += inorder(node.left)
-    nodes += inorder(node.right)
+    nodes += preorder(node.left)
+    nodes += preorder(node.right)
+
+    nodes
+  end
+
+  def self.postorder(node, nodes = [])
+    return [] if node == nil
+
+    nodes += postorder(node.left)
+    nodes += postorder(node.right)
+    nodes += [node.value]
 
     nodes
   end
@@ -106,14 +116,14 @@ class BST
   end
 
   # Construct a tree from a given preorder traversal
-  # O(n^2)
+  # Runtime: O(n^2)
   def self.construct_from_preorder(arr)
     # The first element of the array is the root
     # then get the elements from index 1 until
     # the first value that's larger than the root value
     # That's the left subtree
     # Everythign from the first value larger than the root value until the
-    # end of the array is in teh right subtree
+    # end of the array is in the right subtree
     return nil if arr.size == 0
     root = BST.insert(nil, arr[0])
     left_subarray = []
@@ -133,6 +143,18 @@ class BST
     root.right = BST.construct_from_preorder(right_subarray)
 
     root
+  end
+
+  # Construct a tree form a given preorder tranversal
+  # Runtime: O(n)
+  def self.fast_preorder_construction(arr, min = nil, max = nil)
+    # Set a min and max for each node
+    # As we add a value we use its parent to update the min or max value depending
+    # on whether its a left or right subtree
+    return nil if arr.size == 0
+    root = BST.insert(nil, arr[0])
+
+
   end
 
   # Extra credit: Balance the tree when this is called
