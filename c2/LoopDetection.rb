@@ -4,6 +4,41 @@ require './Node.rb'
 # Given a circular linked list, implement an algorithm that returns the node at the beginning of the loop
 
 class LoopDetection
+
+
+  # Okay let's use some better math
+  # we set off the 2 pointers 1 at 1x and another at 2x
+  # Shen they meet we are in the loop
+  # slow has moved s steps and fast has moved 2s steps
+  # But they're in the same place!!!
+  # What does that tell us
+  # Well we know s = h + x, where h is the size of the head
+  # we also know that 2s = h + (c)*loop_size + x
+  def optimal(node)
+    p1 = node
+    p2 = node
+
+    while p1 != nil && p1.next != nil
+      p1 = p1.next_node.next_node
+      p2 = p2.next_node
+      break if p1 == p2
+    end
+
+    return nil if p1 == nil || p1.next_node == nil
+    p1 = head
+
+    while p1 != p2
+      p1 = p1.next_node
+      p2 = p2.next_node
+    end
+
+    return p1
+  end
+
+
+
+
+
   # How about we do stuff with reversing the list
   # 3-pass linear solution, constant space
   # run 2 pointers, at 1x and 2x speed until they meet
