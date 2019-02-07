@@ -1,9 +1,13 @@
 class Node
   attr_accessor :value, :next_node
 
+  @@id = 0
+
   def initialize(value, next_node = nil)
     @value = value
     @next_node = next_node
+    @@id += 1
+    @id = @@id
   end
 
   def self.list_from_array(arr)
@@ -56,6 +60,7 @@ class Node
   end
 
   def to_s
-    "#{value} => #{next_node}"
+    "Id: #{@id}, Value: #{value}"
+    # "(#{value} => #{node.next_node})"
   end
 end
