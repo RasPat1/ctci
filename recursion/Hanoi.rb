@@ -1,5 +1,3 @@
-require 'byebug'
-
 class Hanoi
   def initialize(size)
     @s1 = []
